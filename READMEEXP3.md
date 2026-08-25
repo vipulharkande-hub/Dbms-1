@@ -46,3 +46,17 @@ INSERT INTO faculty VALUES
 (202, 'Prof. Mehta', 'mehta@gmail.com', '9876543211', 2);
 
 SELECT * FROM faculty;
+
+## Normalisation
+
+### 1NF (First Normal Form)
+All attributes contain atomic values and there are no repeating groups.
+
+### 2NF (Second Normal Form)
+All non-key attributes are fully dependent on the primary key.
+
+### 3NF (Third Normal Form)
+There are no transitive dependencies. Non-key attributes depend only on the primary key.
+
+### Normalisation Used
+The database design follows **1NF, 2NF and 3NF**.
