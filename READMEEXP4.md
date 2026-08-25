@@ -85,3 +85,56 @@ SELECT * FROM patient;
 SELECT * FROM room;
 
 SELECT * FROM appointment;
+
+
+// NORMALISATION: 1NF
+// All columns contain atomic (single) values.
+
+// NORMALISATION: 2NF
+// Each table has a primary key and non-key attributes depend on the complete primary key.
+
+// NORMALISATION: 3NF
+// Department details are kept separately and doctor/other tables use dept_id as a foreign key.
+
+CREATE DATABASE hospital_demo;
+USE hospital_demo;
+
+CREATE TABLE department (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(50) UNIQUE NOT NULL
+);
+
+CREATE TABLE doctor (
+    doctor_id INT PRIMARY KEY,
+    doctor_name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) UNIQUE,
+    phone_no VARCHAR(15) UNIQUE,
+    dept_id INT,
+    FOREIGN KEY (dept_id) REFERENCES department(dept_id)
+);
+
+CREATE TABLE patient (
+    patient_id INT PRIMARY KEY,
+    patient_name VARCHAR(50) NOT NULL,
+    age INT,
+    gender CHAR(1),
+    phone_no VARCHAR(15) UNIQUE
+);
+
+CREATE TABLE appointment (
+    appointment_id INT PRIMARY KEY,
+    patient_id INT,
+    doctor_id INT,
+    appointment_date DATE,
+    status VARCHAR(20),
+    FOREIGN KEY (patient_id) REFERENCES patient(patient_id),
+    FOREIGN KEY (doctor_id) REFERENCES doctor(doctor_id)
+);
+
+CREATE TABLE bill (
+    bill_id INT PRIMARY KEY,
+    appointment_id INT,
+    amount DECIMAL(10,2),
+    payment_status VARCHAR(20),
+    FOREIGN KEY (appointment_id) REFERENCES appointment(appointment_id)
+);
